@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Polo Loco</title>
+    <link rel="icon" href="img\2_character_pepe\1_idle\idle\I-1.png" type="image/x-icon">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+    <script src="levels/level1.js"></script>
+    <script src="js/models/level.class.js"></script>
+    <script src="js/models/drawableObject.class.js"></script>
+    <script src="js/models/movableObject.class.js"></script>
+    <script src="js/models/babyChicken.class.js"></script>
+    <script src="js/models/character.class.js"></script>
+    <script src="js/models/chicken.class.js"></script>
+    <script src="js/models/endboss.class.js"></script>
+    <script src="js/models/world.class.js"></script>
+    <script src="js/models/deadChicken.class.js"></script>
+    <script src="js/models/cloud.class.js"></script>
+    <script src="js/models/status-barEnergyEndBoss.class.js"></script>
+    <script src="js/models/status-barEnergy.class.js"></script>
+    <script src="js/models/status-barCoins.class.js"></script>
+    <script src="js/models/status-barBottles.class.js"></script>
+    <script src="js/models/collectable-Object.class.js"></script>
+    <script src="js/models/keyboard.class.js"></script>
+    <script src="js/models/throwable-object.class.js"></script>
+    <script src="js/models/coin.class.js"></script>
+    <script src="js/models/background-object.class.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="content">
+
+        <div id="canvStart" class="gamePlay">
+            <img id="reload" class="d-none reloadBtn" onclick="reload()" src="img/reload.png" alt="">
+
+            <img id="max" class="d-none maximize" src="img/maximize.png" onclick="canvasFull()" alt="">
+            <img id="min" class="d-none minimize" src="img/minimize.png" onclick="exitFull()" alt="">
+            <img id="mute" class="d-none muteIcon" src="img/mute.png" onclick="world.soundOn(), showAudio(), world.playBackgroundAfterPause()" alt="">
+            <img id="pause" class="d-none pause" src="img/pause.png"
+                onclick="world.character.pauseCharacter(),  world.pauseEnemies(), world.gamePaused()" alt="">
+            <img id="goAhead" class="d-none goAhead" src="img/goAhead.png" onclick="world.playBackgroundMusic(), world.goAhead(), goAhead()" alt="">
+            <img id="audio" class="d-none muteIcon" src="img/audio.png" onclick="world.muteAll(), showMute(), world.muteBackgroundMusic()" alt="">
+            <div>
+                <img id="gameOver" class="gameOver d-none" src="img\9_intro_outro_screens\game_over\game over!.png"
+                    alt="">
+
+
+            </div>
+            <img id="looser" class="gameOver d-none" src="img\9_intro_outro_screens\game_over\you lost.png" alt="">
+            <div class="fullscreenInfoDiv">
+                <h1 class="fullscreenInfoContent">turn screen for playmode</h1>
+                <img src="img/turnScreen.png" alt="">
+                <p class="gameStory">In einem malerischen mexikanischen Dorf namens Santa Rosa bereitete sich Pepe, ein
+                    tapferer und geschickter Läufer, auf einen Kampf vor. Das Dorf ist von einer mysteriösen Hühnerarmee
+                    bedroht, die ihre Rebellion ankündigte. Die Dorfbewohner scharten sich um Pepe, der mutig erklärte,
+                    dass er in den Kampf ziehen würde, um das Dorf zu verteidigen.
+
+                    Pepe trainierte hart, um seine Sprungkünste zu perfektionieren und sein Zielgenauigkeit beim
+                    Flaschenwerfen zu verbessern. Er stählte seinen Körper und seinen Geist für den kommenden Kampf.
+                    Jeder im Dorf verfolgte gespannt Pepes Vorbereitungen und fühlte sich durch seine Entschlossenheit
+                    inspiriert.
+
+                    Der Tag des Kampfes rückte immer näher. Das Dorf war erfüllt von einer gespannten Atmosphäre der
+                    Vorfreude und Nervosität. Die Bewohner bereiteten sich vor, indem sie Vorräte sammelten und
+                    Verteidigungsmaßnahmen ergriffen. Alle hatten Vertrauen in Pepe und glaubten an seine Fähigkeit, die
+                    rebellischen Hühner zu besiegen.
+
+                    Endlich brach der Tag des Kampfes an. Pepe stand in voller Kampfmontur da, bereit, sich der
+                    Hühnerarmee entgegenzustellen. Mit einem inspirierenden Aufruf versammelten sich die Dorfbewohner,
+                    um ihn zu unterstützen. Mit einem letzten Blick auf das Dorf, das er liebte, machte sich Pepe auf
+                    den Weg zum Hühnerversteck.</p>
+
+            </div>
+
+            <div id="start-imgDiv">
+
+
+                <div id="description" class="description">
+
+                    <div class="descriptionDiv">
+
+                        <div id="descriptionKeyboard" class="descriptionKeyboard">
+                            <div>Game description keyboard</div>
+                        </div>
+                        <div onclick=" showDescMobile()" id="descriptionMobile" class="descriptionMobile">
+                            <div>Game description mobile</div>
+                        </div>
+
+                    </div>
+
+                    <div id="descriptionKeyboardIcons" class="descriptionKeyboardIcons d-none">
+
+                        <div id="hideKeyboardDesc" class="hideKeyboardDesc">hide</div>
+
+                        <div style="display: flex;">
+                            <div class="keepSize">
+                              <div>
+                                    <img class="icon-description" src="img/left.png" alt="">
+                                </div>
+                                <div>move left
+                                </div>
+                                                               
+                            </div>
+
+
+                            <div class="keepSize">
+                                <div>
+                                    <img class="icon-description" src="img/jump.png" alt="">
+                                </div>
+                                jump
+
+                            </div>
+
+
+                            <div class="keepSize">
+
+                                <div>
+                                    <img class="icon-description" src="img/right.png" alt="">
+                                </div>
+                                move right
+
+                            </div>
+
+                            <div class="keepSize">
+                                <div class="icon-description throwButton">
+                                    D
+                                </div>
+
+                                throw bottle
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="start-img" class="start-img">
+
+                    <div id="descBackground" class="descBackground d-none"></div>
+
+                    <div id="mobileDescStart" class="d-none" style="font-size: 12px;">
+                        <div id="closeMobileDesc" class="closeDiv"><img class="closeIcon" src="img/close.png" alt="">
+                        </div>
+                        <div id="moveRightStartImg" class="moveRight">
+                            <h1>touch to move right</h1>
+                        </div>
+                        <div id="moveLeftStartImg" class="moveLeft">
+                            <h1>touch to move left</h1>
+                        </div>
+                        <div id="jumpLeftStartImg" class="jumpLeft">
+                            <h1>touch to jump left</h1>
+                        </div>
+                        <div id="jumpRightStartImg" class="jumpRight">
+                            <h1>touch to jump right</h1>
+                        </div>
+                        <div id="throwBottleMain" class="throwBottleMain">
+                            <h1>throw bottle</h1>
+                            <div id="throwButtonDesc" class="throwButtonDiv">
+                                <img id="throwButton" class="throwButtonMobile"
+                                    src="img/6_salsa_bottle/salsa_bottle.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="startBtn">
+                        <img id="play-btn" onclick="initLevel(),  init(), startGame()" src="img/play.png" alt="" />
+
+                    </div>
+                    <img class="startScreen" id="startScreen" src="img/9_intro_outro_screens/start/startscreen_2.png"
+                        alt="" />
+
+                </div>
+            </div>
+
+            <div class="canvasDiv">
+                <div id="gameDesMobile"></div>
+                <div id="moveRightMobile" class="moveRight fullOpacity" alt="">touch to move right</div>
+                <div id="moveLeftMobile" class="moveLeft fullOpacity" alt=""></div>
+                <div id="jumpRightMobile" class="jumpRight fullOpacity" alt=""></div>
+                <div id="jumpLeftMobile" class="jumpLeft fullOpacity" alt=""></div>
+                <div id="throwButtonDiv" class="throwButtonDivPlay  d-none">
+                    <img id="throwButtonPlay" class="throwButtonMobile" src="img/6_salsa_bottle/salsa_bottle.png"
+                        alt="">
+                </div>
+                <canvas class="d-none" id="canvas" width="720" height="480"> </canvas>
+            </div>
+        </div>
+
+        <div>
+
+
+        </div>
+
+    </div>
+
+    </div>
+
+</body>
+<script src="js/game.js"></script>
+
+</html>
